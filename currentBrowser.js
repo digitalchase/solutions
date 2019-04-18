@@ -1,4 +1,4 @@
-//Функция определения 
+//Функция определения IE
 function currentBrowser() {
     var ua = navigator.userAgent;
     if (ua.match(/MSIE/)) return;
