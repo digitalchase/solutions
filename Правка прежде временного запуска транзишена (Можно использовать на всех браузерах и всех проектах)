@@ -1,0 +1,17 @@
+В самых лучших браузерах (edge, ie, safari), последний редко, иногда всякие transition анимации запускаются прежде временно, на этапе загрузки старницы, и из за этого может получиться так, что пользователь увидит как попап уезжает за пределы экрана
+
+Для того, что бы пофиксить этот баг, необходимо поумолчанию на <html> добавить аттрибут data-noTransition="true" со значением и в css добавить следующий код
+html[data-noTransition="true"] * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none *
+} 
+
+Это прервет любые анимации и трансформации, а после загрузки стараницы его необходимо удалить, ниже пример на jquery
+$(window).load(function() {
+    $('html').attr('data-noTransition') == 'true' ? $('html').attr('data-noTransition', 'false') : '';
+});
+
+Вообще подобное можно делать всегда и на все браузеры, просто для того, что бы подстраховаться.
