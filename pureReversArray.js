@@ -5,9 +5,7 @@
 let array = [0,1,2,3];
 
 function pureReverse(arr) {
-  let revArr = arr.reduce((ar, el)=> {
+  return arr.reduce(function(ar, el) {
     return [el, ...ar]
   }, []);
-
-  return revArr;
 }
