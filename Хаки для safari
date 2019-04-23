@@ -8,6 +8,44 @@
 Для того, что бы это пофиксить, необходимо на элементы внутри которых есть или будет скролл добавить css свойство  -webkit-overflow-scrolling: touch;
 
 2) Открытие всяких модалок путем выезжания из за экрана, не используйте transform по причинам написаным выше, используйте top, left ...
+Для того, что бы была возможность для нормальных браузеров использовать transform, а для сафари top, left ... 
+Можно сделать следующие:
+2.1) Пишем самовызывающуюся функцию определения браузера или просим бекенд определить браузер, после добавляем в html аттрибут data-browser="..."
+(function () {
+    var ua = navigator.userAgent;
+    if (ua.match(/MSIE/)) return;
+    if (ua.match(/Firefox/)) return;
+    if (ua.match(/Opera/)) return;
+    if (ua.match(/Chrome/)) return;
+    if (ua.match(/Safari/)) {
+        $('html').attr('data-browser', 'safari'); //В нашем случае мы ищем сафари
+        return;
+    };
+    
+})();
+
+2.3) После пишим стили
+SCSS: 
+//Для нормальных браузеров
+selector {
+  transfrom: translateX(0);
+  &-active {
+    transfrom: translateX(300px);
+  }
+}
+
+//Для сафари
+Эти стили будут важнее, просто по селекторам, поэтому то, что выше нам необходимо отменить только состояние поумолчанию
+[data-browser="safari"] {
+  selector {
+    transform: none;
+    left: 0;
+    &-active {
+      left: 300px;
+    }
+  }
+}
+
 
 
 3) Где то тут же лежит хак по отмене transition до загрузки страницы, его тоже нужно использовать
