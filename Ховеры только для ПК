@@ -1,0 +1,34 @@
+//Чаще всего на мобильных устройствах (тач устройства) просят отключать всякие css  :hover, :active и самый простой способ это попросить бекендера или написать самому определение мобильного устройства (на планшет тоже работает)
+
+//Ниже пример кода для определения мобильного устройства
+
+
+function checkTouchDevice() {
+    return !!navigator.userAgent.match(/(iPhone|iPod|iPad|Android|playbook|silk|BlackBerry|BB10|WindowsPhone|Tizen|Bada|webOS|IEMobile|Opera Mini)/);
+}
+checkTouchDevice() ? '' : $('html').addClass('notTouch');
+
+//А далее в css все :hover, :active эффекты записывать в следующем виде
+
+//Примеры
+SCSS:
+.notTouch {
+  selector {
+    :hover {
+      ...css
+    }
+    :active {
+      ...css
+    }
+  }
+}
+
+
+CSS: 
+.notTouch selector:hover {
+  ...css
+}
+
+.notTouch selector:active {
+  ...css
+}
