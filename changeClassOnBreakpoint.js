@@ -32,6 +32,15 @@ function toggleClassWhenWindowResiae(obj) {
     }
 }
 
+/*-- Пример вызова --*/
+
+var changeBtnInmuseumSliderDetail = {
+      element: ".btn-type-nav",
+      toggleClass: "btn-type-nav-white",
+      toggleToClass: "btn-type-nav-purple",
+      breakpoint: 1000
+ };
+
 //Просто вызов
 toggleClassWhenWindowResiae(changeBtnInmuseumSliderDetail);
 
@@ -39,3 +48,5 @@ toggleClassWhenWindowResiae(changeBtnInmuseumSliderDetail);
 $(window).resize(function() {
     toggleClassWhenWindowResiae(changeBtnInmuseumSliderDetail);
 });
+
+
