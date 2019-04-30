@@ -61,3 +61,7 @@ html[data-noTransition="true"] * {
 $(window).load(function() {
     $('html').attr('data-noTransition') == 'true' ? $('html').attr('data-noTransition', 'false') : '';
 });
+
+
+4) Иногда всякие странные люди просят на сафари отключить стандартные элементы в инпут. Есть целый ряд css свойств для этого.
+НО, никогда не трогайте input::-webkit-textfield-decoration-container, не пишите ей display: none или еще что то. Она отключает у инпут placeholder
