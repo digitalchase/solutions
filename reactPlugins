@@ -1,0 +1,4 @@
+//Полезные реакт плаги
+
+1) https://www.npmjs.com/package/react-onclickoutside-decorator //Клик вне компонента (работает на декораторах, есть вариант и без декораторов)
+2) https://www.npmjs.com/package/react-transition-group / https://github.com/reactjs/react-transition-group //Анимации для компонентов (сейчас можно склонить только с гитхаба, где то внизу есть ссылка (npm install react-transition-group --save))
