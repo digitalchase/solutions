@@ -36,7 +36,7 @@ selector {
 
 //Для сафари
 Эти стили будут важнее, просто по селекторам, поэтому то, что выше нам необходимо отменить только состояние поумолчанию
-[data-browser="safari"] {
+html[data-browser="safari"] {
   selector {
     transform: none;
     left: 0;
