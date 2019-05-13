@@ -1,0 +1,12 @@
+//Возможно единственный способ правильно сравнить прототип с прототипом объекта
+
+function is(type, obj) {
+    var clas = Object.prototype.toString.call(obj).slice(8, -1);
+    return obj !== undefined && obj !== null && clas === type;
+}
+
+const time = new Date();
+
+is('Date', time); // true
+is('Object', time) // false
+is('String', new String('test')); // true
