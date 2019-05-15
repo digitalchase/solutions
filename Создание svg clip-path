@@ -1,0 +1,38 @@
+//Для того, что бы обрезать элемент по заданной svg форме (пути, круги, квадраты ...)
+//Нужно в HTML добавить элемент
+//В css на элемент который обрезается добавить свойство clip-path: url(#mask) (mask это id clipPath из svg)
+
+<svg width="0" height="0" id="clipPath">
+   <defs>
+    <clipPath id="mask">
+      <path d=""/>
+    </clipPath>
+  </defs>
+</svg>
+
+//В нашем случае обрезание будет происходит по <path /> форма будет такая же как в параметре d
+
+//Ниже есть пример того как можно динамически задать параметр d
+
+function dynamicClipPath() {
+    this.path = $("#clipPath path");
+    this.clippingContainer = $("#container");
+    this.pathAttrD = [
+        "M0 0",
+        "Q " + this.clippingContainer.width() / 2 + " 100 " + this.clippingContainer.width() + " 0",
+        "L" + this.clippingContainer.width() + " " + this.clippingContainer.height(),
+        "Q " + this.clippingContainer.width() / 2 + " " + (this.clippingContainer.height() - 100) + " 0 " + this.clippingContainer.height(),
+        "z"
+    ];
+
+    this.path.attr("d", this.pathAttrD.join(" "));
+};
+
+<svg width="0" height="0" id="clipPath">
+   <defs>
+    <clipPath id="mask">
+      <path d=""/>
+    </clipPath>
+  </defs>
+</svg>
+<div id="container"><div>
