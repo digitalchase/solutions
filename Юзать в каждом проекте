@@ -6,7 +6,7 @@ html[data-noTransition="true"] * {
   -moz-transition: none !important;
   -ms-transition: none !important;
   -o-transition: none !important;
-  transition: none *
+  transition: none !important;
 } 
 
 Это прервет любые анимации и трансформации, а после загрузки стараницы его необходимо удалить, ниже пример на jquery
