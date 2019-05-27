@@ -1,0 +1,18 @@
+
+//некий стандартный шрифт от которого будут отталкиваться rem, его лучше прописать в body или html 
+$root-font-size: 16px; 
+
+//В функцию передать размер в пикселях
+@function rem($size) {
+    @return $size / $root-font-size * 1rem;
+}
+
+//Пример
+
+body {
+  font-size: $root-font-size;
+}
+
+p {
+  font-size: rem(24px); // 1.5rem
+}
