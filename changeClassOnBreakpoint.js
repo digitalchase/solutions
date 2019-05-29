@@ -17,18 +17,20 @@
 */
 
 function toggleClassWhenWindowResiae(obj) {
-    if ($(obj.element).length == 0) {
+    if ($(obj.element).length === 0) {
         return false;
     }
 
-    if (window.innerWidth <= obj.breakpoint && $(obj.element).length && $(obj.element).hasClass(obj.toggleClass)) {
-        $(obj.element)
-            .removeClass(obj.toggleClass)
-            .addClass(obj.toggleToClass);
-    } else if (window.innerWidth > obj.breakpoint && $(obj.element).length && $(obj.element).hasClass(obj.toggleToClass)) {
-        $(obj.element)
-            .removeClass(obj.toggleToClass)
-            .addClass(obj.toggleClass);
+    if (window.innerWidth <= obj.breakpoint && $(obj.element).hasClass(obj.toggleClass)) {
+        $(obj.element).removeClass(obj.toggleClass);
+        if (obj.toggleToClass.trim() !== "") {
+            obj.element.addClass(obj.toggleToClass);
+        }
+    } else if (window.innerWidth > obj.breakpoint && !$(obj.element).hasClass(obj.toggleClass)) {
+        if (obj.toggleToClass.trim() !== "") {
+            $(obj.element).removeClass(obj.toggleToClass);
+        }
+        $(obj.element).addClass(obj.toggleClass);
     }
 }
 
