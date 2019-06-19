@@ -20,6 +20,37 @@
     </div>
 </div>
 
+//Пример scss стилей
+/*
+.customScroll {
+    &-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+    &__scroller {
+        max-height: 100%;
+        height: 100%;
+        &::-webkit-scrollbar { //Вот эта штука работает в хроме и сафари, для остальных браузеров гугл или свои методы
+            width: 0;
+        }
+        &_track {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 5px;
+            border-right: 1px solid #f00;
+        }
+        &_bar {
+            position: relative;
+            background-color: #ff0;
+            border-radius: 10px;
+        }
+    }
+}
+
+*/
+
 //Активация кастомного скролла
 function customScrollInit(selector) {
     baron({
