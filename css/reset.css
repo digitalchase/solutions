@@ -35,15 +35,16 @@ input::-webkit-caps-lock-indicator {
   opacity: 0;
 }
 
+//Отключает иконку ключа на сафари в input[type="password"]
 input::-webkit-credentials-auto-fill-button {
   display: none;
   opacity: 0;
 }
-
+/* не раскоменчивать, убивает возможность ввода пароля в input на маках
 input::-webkit-textfield-decoration-container {
   display: none;
   opacity: 0;
-}
+}*/
 
 ::-ms-reveal {
   display: none;
