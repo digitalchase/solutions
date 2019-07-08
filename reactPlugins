@@ -1,4 +1,5 @@
 //Полезные реакт плаги
 
-1) https://www.npmjs.com/package/react-onclickoutside //Клик вне компонента  (есть вариант на декораторах, но у меня что то не сработало)
-2) https://www.npmjs.com/package/react-transition-group / https://github.com/reactjs/react-transition-group //Анимации для компонентов (сейчас можно склонить только с гитхаба, где то внизу есть ссылка (npm install react-transition-group --save))
+1) Клик вне компонента  (есть вариант на декораторах, но у меня что то не сработало) -> https://www.npmjs.com/package/react-onclickoutside
+2) Анимации для компонентов (сейчас можно склонить только с гитхаба, где то внизу есть ссылка (npm install react-transition-group --save)) -> https://www.npmjs.com/package/react-transition-group / https://github.com/reactjs/react-transition-group
+3) Swiper slider -> https://www.npmjs.com/package/react-id-swiper
