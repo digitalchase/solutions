@@ -2,6 +2,9 @@
 //Нужно в HTML добавить элемент
 //В css на элемент который обрезается добавить свойство clip-path: url(#mask) (mask это id clipPath из svg)
 
+//svg path generator https://codepen.io/anthonydugois/pen/mewdyZ
+
+
 <svg width="0" height="0" id="clipPath">
    <defs>
     <clipPath id="mask">
