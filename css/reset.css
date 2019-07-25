@@ -40,6 +40,14 @@ input::-webkit-credentials-auto-fill-button {
   display: none;
   opacity: 0;
 }
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
 /* не раскоменчивать, убивает возможность ввода пароля в input на маках
 input::-webkit-textfield-decoration-container {
   display: none;
