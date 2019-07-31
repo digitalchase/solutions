@@ -11,20 +11,16 @@
 /*Запуск кастомного селекта*/
 
 /*
-В качестве параметра, принимается массив в настройками для каждого селекта. Если настроек нет, то применятся стандратные
-
-
-placeholder: undefined, //Плейсхолдер на селекте (если нет этого параметра, то будет значение поумолчанию)
-search: false, //(ture or false) если true true то в дропдауне селекта будет строка для поиска
-searchPlaceholder: undefined, //Плейсхолдер на поиске селекта, если его нет, то значени по умолчанию
-notFoundContent: undefined, //Сюда можно вставить как текст, так и верстку
-baronScrollInit: undefined, //Активация кастомного скролла в дропдауне
-on: { //Коллбеки
-    dropdownOpen: null, //Поумолчанию в каждое событие передается элемент селекта
-    dropdownClose: null //Поумолчанию в каждое событие передается элемент селекта
-}
-
-
+    placeholder: undefined, //Плейсхолдер на селекте (если нет этого параметра, то будет значение поумолчанию)
+    search: false, //(ture or false) если true true то в дропдауне селекта будет строка для поиска
+    searchPlaceholder: undefined, //Плейсхолдер на поиске селекта, если его нет, то значени по умолчанию
+    notFoundContent: undefined, //Сюда можно вставить как текст, так и верстку
+    baronScrollInit: undefined, //Активация кастомного скролла в дропдауне
+    on: { //Коллбеки. Каждый колбек имеет один аргумент который равер враперу селекта
+        init: null,
+        dropdownOpen: null, //Поумолчанию в каждое событие передается элемент селекта
+        dropdownClose: null //Поумолчанию в каждое событие передается элемент селекта
+    }
 */
 
                                                                                                                                                                                                             
@@ -34,7 +30,12 @@ $("[_dc_customSelect]").dcInitCustomSelect([
           search: true,
           searchPlaceholder: "Поиск",
           notFoundContent: "Лектор не найден",
-          baronScrollInit: true
+          baronScrollInit: true,
+         on: {
+           init: function(el) {
+             console.log(el)
+           }
+         }
       },
       {
           placeholder: "Asd",
