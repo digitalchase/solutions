@@ -1,79 +1,80 @@
-class DcCustomSelect {
-  constructor(_el, _options) {
-      this.el = this.is("String", _el) ? $(_el) : _el;
-      this.options = this.is("Object", _options)
-          ? _options
-          : {
-                placeholder: undefined,
-                search: false,
-                searchPlaceholder: undefined,
-                notFoundContent: undefined,
-                baronScrollInit: undefined,
-                on: {
-                    dropdownOpen: null, //Поумолчанию в каждое событие передается элемент селекта
-                    dropdownClose: null //Поумолчанию в каждое событие передается элемент селекта
-                }
-            };
-      this.uniqId = this.el.attr("data-uniqId") === undefined ? `dc${Date.parse(new Date())}` : this.el.attr("data-uniqId"); //Уникальный id (количество миллисекунд, прошедших с 1 января 1970 года 00:00:00 по UTC)
-      this.init();
-  }
-
-  // Сравнение типов
-  is(type, obj) {
-      var clas = Object.prototype.toString.call(obj).slice(8, -1);
-      return obj !== undefined && obj !== null && clas === type;
-  }
-
-  init() {
-      let that = this;
-      let { search } = that.options;
-
-      that.el.wrap(`<div class="_dc_customSelect-wrapper" id="${that.uniqId}"/>`);
-      this.el.hide();
-
-      // Передаем враппер дальше, что бы наполнить его кастомным визуалом
-      that.createSelectUi($(`#${that.uniqId}`));
-
-      that.bindFunctionOnUi();
-
-      //Ловим клик вне селекта
-      that.outerClick();
-
-      if (search === true) {
-          that.searchInit();
+(function() {
+  class DcCustomSelect {
+      constructor(_el, _options) {
+          this.el = this.is("String", _el) ? $(_el) : _el;
+          this.options = this.is("Object", _options)
+              ? _options
+              : {
+                    placeholder: undefined,
+                    search: false,
+                    searchPlaceholder: undefined,
+                    notFoundContent: undefined,
+                    baronScrollInit: undefined,
+                    on: {
+                        dropdownOpen: null, //Поумолчанию в каждое событие передается элемент селекта
+                        dropdownClose: null //Поумолчанию в каждое событие передается элемент селекта
+                    }
+                };
+          this.uniqId = this.el.attr("data-uniqId") === undefined ? `dc${Date.parse(new Date())}` : this.el.attr("data-uniqId"); //Уникальный id (количество миллисекунд, прошедших с 1 января 1970 года 00:00:00 по UTC)
+          this.init();
       }
-  }
 
-  createSelectUi(el) {
-      let that = this,
-          { placeholder, search, searchPlaceholder, notFoundContent, baronScrollInit } = this.options,
-          dropdownList = "",
-          placeholderDefault =
-              el
-                  .find("select option")
-                  .eq(0)
-                  .attr("value") === "" ||
-              el
-                  .find("select option")
-                  .eq(0)
-                  .attr("value") === undefined
-                  ? "Выберите из списка"
-                  : el
-                        .find("select option")
-                        .eq(0)
-                        .attr("value");
+      // Сравнение типов
+      is(type, obj) {
+          var clas = Object.prototype.toString.call(obj).slice(8, -1);
+          return obj !== undefined && obj !== null && clas === type;
+      }
 
-      // Ищу все option в селекте и создаю обычные элементы
-      let newList = [];
-      Array.from(
-          el.find("select option").each((index, val) => {
-              newList.push(`<div class="_dc_customSelect__list_item" data-value="${$(val).attr("value")}">${$(val).text()}</div>`);
-          })
-      );
+      init() {
+          let that = this;
+          let { search } = that.options;
 
-      // Активация и добавление барона или стандарт
-      if (that.is("Function", window.baron) && baronScrollInit === true) {
-          dropdownList = `
+          that.el.wrap(`<div class="_dc_customSelect-wrapper" id="${that.uniqId}"/>`);
+          this.el.hide();
+
+          // Передаем враппер дальше, что бы наполнить его кастомным визуалом
+          that.createSelectUi($(`#${that.uniqId}`));
+
+          that.bindFunctionOnUi();
+
+          //Ловим клик вне селекта
+          that.outerClick();
+
+          if (search === true) {
+              that.searchInit();
+          }
+      }
+
+      createSelectUi(el) {
+          let that = this,
+              { placeholder, search, searchPlaceholder, notFoundContent, baronScrollInit } = this.options,
+              dropdownList = "",
+              placeholderDefault =
+                  el
+                      .find("select option")
+                      .eq(0)
+                      .attr("value") === "" ||
+                  el
+                      .find("select option")
+                      .eq(0)
+                      .attr("value") === undefined
+                      ? "Выберите из списка"
+                      : el
+                            .find("select option")
+                            .eq(0)
+                            .attr("value");
+
+          // Ищу все option в селекте и создаю обычные элементы
+          let newList = [];
+          Array.from(
+              el.find("select option").each((index, val) => {
+                  newList.push(`<div class="_dc_customSelect__list_item" data-value="${$(val).attr("value")}">${$(val).text()}</div>`);
+              })
+          );
+
+          // Активация и добавление барона или стандарт
+          if (that.is("Function", window.baron) && baronScrollInit === true) {
+              dropdownList = `
               <div class="_dc_customSelect__customScroll-wrapper">
                   <div class="_dc_customSelect__customScroll_scroller">
                       <div class="_dc_customSelect__list">
@@ -85,16 +86,16 @@ class DcCustomSelect {
                   </div>
               </div>
           `;
-      } else {
-          dropdownList = `
+          } else {
+              dropdownList = `
               <div class="_dc_customSelect__list">
                   ${newList.join("")}
               </div>
           `;
-      }
+          }
 
-      // Создаю визул кастомного селекта
-      el.append(`
+          // Создаю визул кастомного селекта
+          el.append(`
           <div class="_dc_customSelect__select">
               <div class="_dc_customSelect__select_text">${placeholder !== undefined ? placeholder : placeholderDefault}</div>
               <div class="_dc_customSelect__trigger">
@@ -121,217 +122,209 @@ class DcCustomSelect {
           </div>
       `);
 
-      //Инит baron js (опции нельзя передавать)
-      if (that.is("Function", window.baron) && baronScrollInit === true) {
-          window.baronInit = []; //Создаю массив для хранения и доступа к скроллам
-          window.baronInit[that.uniqId] = baron({
-              root: $(`#${that.uniqId} ._dc_customSelect__customScroll-wrapper`).selector, //selector
-              scroller: "._dc_customSelect__customScroll_scroller",
-              bar: "._dc_customSelect__customScroll_bar",
-              scrollingCls: "_scrolling",
-              draggingCls: "_dragging"
+          //Инит baron js (опции нельзя передавать)
+          if (that.is("Function", window.baron) && baronScrollInit === true) {
+              window.baronInit = []; //Создаю массив для хранения и доступа к скроллам
+              window.baronInit[that.uniqId] = baron({
+                  root: $(`#${that.uniqId} ._dc_customSelect__customScroll-wrapper`).selector, //selector
+                  scroller: "._dc_customSelect__customScroll_scroller",
+                  bar: "._dc_customSelect__customScroll_bar",
+                  scrollingCls: "_scrolling",
+                  draggingCls: "_dragging"
+              });
+          }
+
+          //Настройка плейсхолдера
+          if (
+              $(`#${this.uniqId}`)
+                  .find("._dc_customSelect__list_item")
+                  .eq(0)
+                  .attr("data-value") === "undefined" ||
+              $(`#${this.uniqId}`)
+                  .find("._dc_customSelect__list_item")
+                  .eq(0)
+                  .attr("data-value") === ""
+          ) {
+              that.setVal("");
+              that.updatePlaceholder(placeholder !== undefined ? placeholder : el.find("select").attr("data-placeholder"));
+          } else {
+              that.setVal(
+                  $(`#${this.uniqId}`)
+                      .find("._dc_customSelect__list_item")
+                      .eq(0)
+                      .attr("data-value")
+              );
+              that.updatePlaceholder(
+                  $(`#${this.uniqId}`)
+                      .find("._dc_customSelect__list_item")
+                      .eq(0)
+                      .text()
+              );
+          }
+      }
+
+      //Довление функции поиска в дропдаун
+      searchInit() {
+          let parent = $(`#${this.uniqId}`);
+
+          parent.find('[type="search"]').on("input", function() {
+              let that = $(this);
+
+              // Удаление класса котрый прячет поисковую выдачу
+              if (parent.is(".notFound")) {
+                  parent.removeClass("notFound");
+              }
+
+              parent.find("._dc_customSelect__list_item").each(function(i, val) {
+                  if (
+                      !$(val)
+                          .text()
+                          .toLowerCase()
+                          .includes(that.val().toLowerCase())
+                  ) {
+                      $(val).hide();
+                  } else {
+                      $(val).show();
+                  }
+              });
+
+              // Проверка на то есть ли хоть один элемент в выдаче поиска
+              if (parent.find("._dc_customSelect__list_item:visible").length === 0) {
+                  parent.find("._dc_customSelect__not-found").show();
+                  parent.addClass("notFound");
+              } else if (parent.find("._dc_customSelect__not-found").is(":visible")) {
+                  parent.find("._dc_customSelect__not-found").hide();
+              }
           });
       }
 
-      //Настройка плейсхолдера
-      if (
-          $(`#${this.uniqId}`)
-              .find("._dc_customSelect__list_item")
-              .eq(0)
-              .attr("data-value") === "undefined" ||
-          $(`#${this.uniqId}`)
-              .find("._dc_customSelect__list_item")
-              .eq(0)
-              .attr("data-value") === ""
-      ) {
-          that.setVal("");
-          that.updatePlaceholder(placeholder !== undefined ? placeholder : el.find("select").attr("data-placeholder"));
-      } else {
-          that.setVal(
-              $(`#${this.uniqId}`)
-                  .find("._dc_customSelect__list_item")
-                  .eq(0)
-                  .attr("data-value")
-          );
-          that.updatePlaceholder(
-              $(`#${this.uniqId}`)
-                  .find("._dc_customSelect__list_item")
-                  .eq(0)
-                  .text()
-          );
-      }
-  }
+      //присваиваем клики на UI
+      bindFunctionOnUi() {
+          let parent = $(`#${this.uniqId}`);
 
-  //Довление функции поиска в дропдаун
-  searchInit() {
-      let parent = $(`#${this.uniqId}`);
+          const that = this;
 
-      parent.find('[type="search"]').on("input", function() {
-          let that = $(this);
-
-          // Удаление класса котрый прячет поисковую выдачу
-          if (parent.is(".notFound")) {
-              parent.removeClass("notFound");
-          }
-
-          parent.find("._dc_customSelect__list_item").each(function(i, val) {
-              if (
-                  !$(val)
-                      .text()
-                      .toLowerCase()
-                      .includes(that.val().toLowerCase())
-              ) {
-                  $(val).hide();
+          //Клик _dc_customSelect__select
+          parent.find("._dc_customSelect__select").on("click", function() {
+              // Открытие и закрытие селекта
+              if (parent.is(".dropped")) {
+                  that.closeDropdown();
               } else {
-                  $(val).show();
+                  that.openDropdown();
               }
           });
 
-          // Проверка на то есть ли хоть один элемент в выдаче поиска
-          if (parent.find("._dc_customSelect__list_item:visible").length === 0) {
-              parent.find("._dc_customSelect__not-found").show();
-              parent.addClass("notFound");
-          } else if (parent.find("._dc_customSelect__not-found").is(":visible")) {
-              parent.find("._dc_customSelect__not-found").hide();
-          }
-      });
-  }
+          //По клику на элемент в селекте добавляем его value в select.val
+          parent.find("._dc_customSelect__list_item").on("click", function() {
+              that.setVal($(this).attr("data-value"));
 
-  //присваиваем клики на UI
-  bindFunctionOnUi() {
-      let { on } = this.options;
-      let parent = $(`#${this.uniqId}`);
+              parent.find("._dc_customSelect__list_item").removeClass("active");
+              $(this).addClass("active");
 
-      const that = this;
-
-      //Клик _dc_customSelect__select
-      parent.find("._dc_customSelect__select").on("click", function() {
-          // Открытие и закрытие селекта
-          if (parent.is(".dropped")) {
+              that.updatePlaceholder(
+                  $(`#${that.uniqId}`)
+                      .find("._dc_customSelect__list_item.active")
+                      .text()
+              );
               that.closeDropdown();
-          } else {
-              that.openDropdown();
+          });
+      }
+
+      //Клик вне селекта
+      outerClick() {
+          const that = this;
+
+          let parent = $(`#${this.uniqId}`);
+
+          $(document).click(function(e) {
+              // событие клика по веб-документу
+              var div = parent; // тут указываем ID элемента
+
+              //Вызываем закрытие только если открыт селект
+              if (parent.is(".dropped")) {
+                  if (
+                      !div.is(e.target) && // если клик был не по нашему блоку
+                      div.has(e.target).length === 0
+                  ) {
+                      // и не по его дочерним элементам
+                      that.closeDropdown();
+                  }
+              }
+          });
+      }
+
+      //Открывает дропдаун
+      openDropdown() {
+          let { on, baronScrollInit } = this.options;
+          const that = this;
+          let parent = $(`#${this.uniqId}`);
+          parent.find("._dc_customSelect__dropdown").css({
+              position: "absolute",
+              top: parent.innerHeight(),
+              left: 0,
+              width: "100%"
+          });
+
+          parent.addClass("dropped");
+
+          //Прячу скролл если высота контента меньше области прокрутки
+          if (that.is("Function", window.baron) && baronScrollInit === true) {
+              if (parent.find("._dc_customSelect__customScroll_scroller").height() > parent.find("._dc_customSelect__list").innerHeight()) {
+                  parent.find("._dc_customSelect__customScroll_track").hide();
+              } else {
+                  parent.find("._dc_customSelect__customScroll_track").show();
+                  window.baronInit[that.uniqId].update();
+              }
           }
 
-          //Коллбеки на закрытие и открытие
           if (on !== undefined && that.is("Object", on)) {
               if (that.is("Function", on.dropdownOpen) && parent.is(".dropped")) {
                   on.dropdownOpen(that.el.parent());
-              } else if (that.is("Function", on.dropdownClose) && !parent.is(".dropped")) {
+              }
+          }
+      }
+
+      //закрывает дропдаун
+      closeDropdown() {
+          let { on } = this.options;
+          const that = this;
+          let parent = $(`#${this.uniqId}`);
+          parent.removeClass("dropped");
+
+          parent.find('[type="search"]').val("");
+          parent.find("._dc_customSelect__not-found").hide();
+          parent.removeClass("notFound");
+          parent.find("._dc_customSelect__list_item").show();
+
+          if (on !== undefined && that.is("Object", on)) {
+              if (that.is("Function", on.dropdownClose) && !parent.is(".dropped")) {
                   on.dropdownClose(that.el.parent());
               }
           }
-      });
-
-      //По клику на элемент в селекте добавляем его value в select.val
-      parent.find("._dc_customSelect__list_item").on("click", function() {
-          that.setVal($(this).attr("data-value"));
-
-          parent.find("._dc_customSelect__list_item").removeClass("active");
-          $(this).addClass("active");
-
-          that.updatePlaceholder(
-              $(`#${that.uniqId}`)
-                  .find("._dc_customSelect__list_item.active")
-                  .text()
-          );
-          that.closeDropdown();
-      });
-  }
-
-  //Клик вне селекта
-  outerClick() {
-      let { on } = this.options;
-      const that = this;
-
-      let parent = $(`#${this.uniqId}`);
-
-      $(document).click(function(e) {
-          // событие клика по веб-документу
-          var div = parent; // тут указываем ID элемента
-          if (
-              !div.is(e.target) && // если клик был не по нашему блоку
-              div.has(e.target).length === 0
-          ) {
-              // и не по его дочерним элементам
-              that.closeDropdown();
-          }
-      });
-  }
-
-  //Открывает дропдаун
-  openDropdown() {
-      let { on, baronScrollInit } = this.options;
-      const that = this;
-      let parent = $(`#${this.uniqId}`);
-      parent.find("._dc_customSelect__dropdown").css({
-          position: "absolute",
-          top: parent.innerHeight(),
-          left: 0,
-          width: "100%"
-      });
-
-      parent.addClass("dropped");
-
-      //Прячу скролл если высота контента меньше области прокрутки
-      if (that.is("Function", window.baron) && baronScrollInit === true) {
-          if (parent.find("._dc_customSelect__customScroll_scroller").height() > parent.find("._dc_customSelect__list").innerHeight()) {
-              parent.find("._dc_customSelect__customScroll_track").hide();
-          } else {
-              parent.find("._dc_customSelect__customScroll_track").show();
-              window.baronInit[that.uniqId].update();
-          }
       }
 
-      if (on !== undefined && that.is("Object", on)) {
-          if (that.is("Function", on.dropdownOpen) && parent.is(".dropped")) {
-              on.dropdownOpen(that.el.parent());
-          }
+      setVal(value) {
+          this.el.val(value);
+          this.el.trigger("change");
+      }
+
+      updatePlaceholder(text) {
+          $(`#${this.uniqId}`)
+              .find("._dc_customSelect__select_text")
+              .html(text);
+      }
+
+      getVal() {
+          return this.el.val();
       }
   }
 
-  //закрывает дропдаун
-  closeDropdown() {
-      let { on } = this.options;
-      const that = this;
-      let parent = $(`#${this.uniqId}`);
-      parent.removeClass("dropped");
-
-      parent.find('[type="search"]').val("");
-      parent.find("._dc_customSelect__not-found").hide();
-      parent.removeClass("notFound");
-      parent.find("._dc_customSelect__list_item").show();
-
-      if (on !== undefined && that.is("Object", on)) {
-          if (that.is("Function", on.dropdownClose) && !parent.is(".dropped")) {
-              on.dropdownClose(that.el.parent());
-          }
-      }
-  }
-
-  setVal(value) {
-      this.el.val(value);
-      this.el.trigger("change");
-  }
-
-  updatePlaceholder(text) {
-      $(`#${this.uniqId}`)
-          .find("._dc_customSelect__select_text")
-          .html(text);
-  }
-
-  getVal() {
-      return this.el.val();
-  }
-}
-
-(function($) {
-    var dcMultiInitSelect = $.fn.dcMultiInitSelect;
-
-    $.fn.dcMultiInitSelect = function(options) {
-        this.each(function(index) {
-            $(this).attr("data-uniqId", "dc" + Date.parse(new Date()) + index);
-            new DcCustomSelect($(this), options ? options[index] : "");
-        });
-    };
-})(jQuery);
+  (function($) {
+      $.fn.dcInitCustomSelect = function(options) {
+          this.each(function(index) {
+              $(this).attr("data-uniqId", "dc" + Date.parse(new Date()) + index);
+              new DcCustomSelect($(this), options ? options[index] : "");
+          });
+      };
+  })(jQuery);
+})();
