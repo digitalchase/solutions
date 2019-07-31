@@ -275,17 +275,17 @@
           parent.addClass("dropped");
 
           //Прячу скролл если высота контента меньше области прокрутки
-          if (that.is("Function", window.baron) && baronScrollInit === true) {
+          if (this.is("Function", window.baron) && baronScrollInit === true) {
               if (parent.find("._dc_customSelect__customScroll_scroller").height() > parent.find("._dc_customSelect__list").innerHeight()) {
                   parent.find("._dc_customSelect__customScroll_track").hide();
               } else {
                   parent.find("._dc_customSelect__customScroll_track").show();
-                  window.baronInit[that.uniqId].update();
+                  window.baronInit[this.uniqId].update();
               }
           }
 
-          if (on !== undefined && that.is("Object", on)) {
-              if (that.is("Function", on.dropdownOpen) && parent.is(".dropped")) {
+          if (on !== undefined && this.is("Object", on)) {
+              if (this.is("Function", on.dropdownOpen) && parent.is(".dropped")) {
                   on.dropdownOpen(parent);
               }
           }
@@ -303,8 +303,8 @@
           parent.removeClass("notFound");
           parent.find("._dc_customSelect__list_item").show();
 
-          if (on !== undefined && that.is("Object", on)) {
-              if (that.is("Function", on.dropdownClose) && !parent.is(".dropped")) {
+          if (on !== undefined && this.is("Object", on)) {
+              if (this.is("Function", on.dropdownClose) && !parent.is(".dropped")) {
                   on.dropdownClose(parent);
               }
           }
