@@ -11,8 +11,7 @@
 /*Запуск кастомного селекта*/
 
 /*
-Первый параметр это селектор селекта
-Второй параметр это объект с опциями, ниже Полный список опций
+В качестве параметра, принимается массив в настройками для каждого селекта. Если настроек нет, то применятся стандратные
 
 
 placeholder: undefined, //Плейсхолдер на селекте (если нет этого параметра, то будет значение поумолчанию)
@@ -30,18 +29,18 @@ on: { //Коллбеки
 
                                                                                                                                                                                                             
 $("[_dc_customSelect]").dcInitCustomSelect([
-    {
-        placeholder: "Все",
-        search: true,
-        searchPlaceholder: "Поиск",
-        notFoundContent: "Лектор не найден",
-        baronScrollInit: true
-    },
-    {
-        placeholder: "Asd",
-        search: true,
-        searchPlaceholder: "Поиск",
-        notFoundContent: "<h1>sdf</h1>",
-        baronScrollInit: true
-    }
-]);
+        {
+          placeholder: "Все",
+          search: true,
+          searchPlaceholder: "Поиск",
+          notFoundContent: "Лектор не найден",
+          baronScrollInit: true
+      },
+      {
+          placeholder: "Asd",
+          search: true,
+          searchPlaceholder: "Поиск",
+          notFoundContent: "<h1>sdf</h1>",
+          baronScrollInit: true
+      }
+  ]);
