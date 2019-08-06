@@ -1,0 +1,310 @@
+
+._dc_customSelect-wrapper {
+  position: relative;
+  width: 240px;
+  z-index: 10;
+}
+
+._dc_customSelect-wrapper.dropped ._dc_customSelect__dropdown {
+  display: block;
+}
+
+._dc_customSelect-wrapper.dropped ._dc_customSelect__trigger_arrow {
+  -webkit-transform: rotate(0);
+  -ms-transform: rotate(0);
+  transform: rotate(0);
+}
+
+._dc_customSelect-wrapper.notFound ._dc_customSelect__list,
+._dc_customSelect-wrapper.notFound ._dc_customSelect__customScroll-wrapper {
+  display: none;
+}
+
+._dc_customSelect__select {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+._dc_customSelect__select-btnReset {
+  padding-bottom: 42px;
+}
+
+._dc_customSelect__select_text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  font-size: 15px;
+  line-height: 18px;
+  color: #333333;
+  font-weight: bold;
+}
+
+._dc_customSelect__trigger {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+}
+
+._dc_customSelect__trigger_arrow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+._dc_customSelect__search {
+  padding: 0 10px;
+  margin-bottom: 12px;
+}
+
+._dc_customSelect__search_input {
+  position: relative;
+}
+
+._dc_customSelect__search_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 30px;
+}
+
+._dc_customSelect__search input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  height: 40px;
+  padding: 0 12px;
+  padding-right: 30px;
+}
+
+._dc_customSelect__not-found {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #cdcdcd;
+  opacity: 0.76;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 11px;
+  max-height: 274px;
+  min-height: 274px;
+  text-align: center;
+}
+
+._dc_customSelect__list {
+  max-height: 274px;
+  min-height: 274px;
+  overflow-y: auto;
+}
+
+._dc_customSelect__list-offsetBottom {
+  padding-bottom: 42px;
+}
+
+._dc_customSelect__list::-webkit-scrollbar {
+  width: 5px;
+}
+
+._dc_customSelect__list::-webkit-scrollbar-button {
+  height: 10px;
+}
+
+._dc_customSelect__list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+._dc_customSelect__list::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+
+._dc_customSelect__list::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #aaa;
+  border-radius: 8px;
+}
+
+._dc_customSelect__list::-webkit-scrollbar-corner {
+  background-color: #f00;
+}
+
+._dc_customSelect__list_item {
+  color: #fff;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 11px;
+  cursor: pointer;
+}
+
+._dc_customSelect__list_item:hover {
+  background-color: #686868;
+}
+
+._dc_customSelect__list_item.active {
+  background-color: #c42a2a;
+}
+
+._dc_customSelect__list_item[data-value="undefined"] {
+  display: none !important;
+}
+
+._dc_customSelect__dropdown {
+  display: none;
+  -webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+  background-color: #333333;
+  padding-top: 10px;
+  margin-top: 5px;
+}
+
+._dc_customSelect__customScroll-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+._dc_customSelect__customScroll-wrapper ._dc_customSelect__list {
+  max-height: none;
+  min-height: auto;
+  overflow: hidden;
+}
+
+._dc_customSelect__customScroll_scroller {
+  overflow: auto;
+  max-height: 274px;
+  min-height: 274px;
+}
+
+._dc_customSelect__customScroll_scroller::-webkit-scrollbar {
+  width: 0;
+}
+
+._dc_customSelect__customScroll_bar {
+  position: absolute;
+  width: 100%;
+  background: #cdcdcd;
+  opacity: 0.77;
+  border-radius: 8px;
+}
+
+._dc_customSelect__customScroll_track {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: 12px;
+  width: 5px;
+  z-index: 10;
+}
+
+._dc_customSelect__customScroll_track-btnReset {
+  bottom: 45px;
+}
+
+._dc_customSelect__btnReset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+._dc_customSelect__btnReset:hover ._dc_customSelect__btnReset_text {
+  background-color: #e2554b;
+}
+
+._dc_customSelect__btnReset_text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #fff;
+  width: 100%;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 11px;
+  cursor: pointer;
+  background-color: #c42a2a;
+  -webkit-transition: 0.1s ease-in-out;
+  -o-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+}
+
+._dc_customSelect__btnReset_trigger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  cursor: pointer;
+}
