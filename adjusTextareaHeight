@@ -1,0 +1,11 @@
+//Передавать что-то типа такого: adjustHeight($(this)[0], 20);
+//el -- элемент
+//offset -- смещение (если нужно редактировать размер отступа)
+
+function adjustHeight(el, offset) {
+    el.style.height = '0px';
+
+    if (el.scrollHeight > el.clientHeight) {
+        el.style.height = el.scrollHeight + offset + "px";
+    }
+}
