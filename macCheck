@@ -1,0 +1,11 @@
+var is_OSX = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+var is_iOS = /(iPhone|iPod|iPad)/i.test(navigator.platform);
+
+var is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+var is_iPhone = navigator.platform == "iPhone";
+var is_iPod = navigator.platform == "iPod";
+var is_iPad = navigator.platform == "iPad";
+
+if (is_OSX == true || is_iOS == true || is_Mac == true || is_iPhone == true || is_iPod == true || is_iPad == true) {
+    $('body').addClass('mac');
+}
