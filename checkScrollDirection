@@ -1,0 +1,41 @@
+//Определение направления скролла страницы
+//Функция принимает в качестве аргумента объект с двумя коллбеками и вызывает их при скролле. 
+
+/*
+
+*/
+
+function checkScrollDirection(callback) {
+  var lastScrollTop = 0;
+
+  var is = function(type, obj) {
+      var clas = Object.prototype.toString.call(obj).slice(8, -1);
+      return obj !== undefined && obj !== null && clas === type;
+  };
+
+  $(window).on("scroll", function() {
+      var top = $(window).scrollTop();
+      if (lastScrollTop > top) {
+          if (is("Function", callback.scrollTop)) {
+              callback.scrollTop();
+          }
+      } else if (lastScrollTop < top) {
+          if (is("Function", callback.scrollDown)) {
+              callback.scrollDown();
+          }
+      }
+      lastScrollTop = top;
+ });
+}
+
+
+ var callbackFuction = {
+  scrollTop: function() {
+      console.log("top");
+  },
+  scrollDown: function() {
+      console.log("down");
+  }
+}
+
+checkScrollDirection(callbackFuction);
