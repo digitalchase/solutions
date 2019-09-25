@@ -6,5 +6,5 @@ function proverka(input) {
 
 //Ввод только кириллицы
 function proverka(input) {
-  input.value = input.value.replace(/[^аА-яЯ]/,'');
+  input.value = input.value.replace(/[^а-яА-Я]/,'');
 };
