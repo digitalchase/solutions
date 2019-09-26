@@ -11,19 +11,27 @@
 /*Запуск кастомного селекта*/
 
 /*
-    placeholder: undefined, //Плейсхолдер на селекте (если нет этого параметра, то будет значение поумолчанию)
-    search: false, //(ture or false) если true true то в дропдауне селекта будет строка для поиска
-    searchPlaceholder: undefined, //Плейсхолдер на поиске селекта, если его нет, то значени по умолчанию
-    notFoundContent: undefined, //Сюда можно вставить как текст, так и верстку
-    baronScrollInit: undefined, //Активация кастомного скролла в дропдауне
-    on: { //Коллбеки. Каждый колбек имеет один аргумент который равер враперу селекта
-        init: null,
-        dropdownOpen: null, //Поумолчанию в каждое событие передается элемент селекта
-        dropdownClose: null //Поумолчанию в каждое событие передается элемент селекта
+    placeholder: String, //Placeholder на селект
+    search: Boolean, //Показывать инпут поиска или нет
+    searchPlaceholder: String, //Placeholder для инпута поиска
+    notFoundContent: String, //Текст который будет выводится если в выдаче поиска нет ничего (можно html строку)
+    baronScrollInit: Boolean, //Активация кастомного скролла (требуется плагин baron.js https://github.com/Diokuz/baron)
+    btnReset: Boolean, //Показывать кнопку сброса значений
+    multiple: Boolean, //Активация мультиселекта
+    multiplePlaceholder: String, //Плейсхолдер для мультиселекта, если выбраны элементы
+    on: {
+        dropdownOpen: Function,
+        dropdownClose: Function
     }
+    
+    Каждый параметр, "on" исключение, можно передать как data атрибут.
+    Пример:
+      notFoundContent == data-not-found-content="<h1>Контент не найде</h1>"
+      multiple == data-multiple
+    
 */
 
-                                                                                                                                                                                                            
+//Активация на два селекта  (если не передавать опции. Значения поумолчанию будут браться из data атрибутов)                                                                                                                                                                                                    
 $("[_dc_customSelect]").dcInitCustomSelect([
         {
           placeholder: "Все",
