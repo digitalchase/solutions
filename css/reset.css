@@ -65,3 +65,51 @@ ul {
 a {
   text-decoration: none;
 }
+
+.contentTextBlock a {
+  color: #07b259;
+  font-weight: 500;
+}
+
+.contentTextBlock b,
+.contentTextBlock strong {
+  color: #4d4d4d;
+  font-weight: 600;
+}
+
+.contentTextBlock em,
+.contentTextBlock i {
+  font-style: italic;
+}
+
+.contentTextBlock h1 {
+  font-size: 2em;
+  line-height: 0.67em;
+}
+
+.contentTextBlock h2 {
+  font-size: 1.5em;
+  line-height: 0.83em;
+}
+
+.contentTextBlock h3 {
+  font-size: 1.17em;
+  line-height: 1em;
+}
+
+.contentTextBlock h4 {
+  font-size: 1em;
+  line-height: 1.33em;
+}
+
+.contentTextBlock h5 {
+  font-size: 0.83em ;
+  line-height: 1.67em;
+}
+
+.contentTextBlock h6 {
+  font-size: 0.67em;
+  line-height: 2.33em;
+}
+
+
