@@ -1,0 +1,31 @@
+._dc {
+  &-customCheckbox {
+    position: relative;
+    &__checkbox {
+      position: relative;
+      max-width: 16px;
+      max-height: 16px;
+      min-width: 16px;
+      min-height: 16px;
+      background-color: #fff;
+      &:before {
+        content: '';
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+    input {
+      display: none;
+      &:checked + ._dc-customCheckbox__checkbox {
+        &:before {
+          display: block;
+          background-color: #f00;
+        }
+      }
+    }
+  }
+}
