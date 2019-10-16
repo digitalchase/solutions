@@ -47,6 +47,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: auto;
+    user-select: none;
 }
 ._dc_customSelect__trigger {
     display: -webkit-box;
