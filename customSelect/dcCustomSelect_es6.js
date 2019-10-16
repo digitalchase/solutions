@@ -371,10 +371,10 @@
                         const { dropdownIsOpen } = that.state;
                         // событие клика по веб-документу
                         var div = globalWrapper; // тут указываем ID элемента
-                        if (dropdownIsOpen === false) return false;
                         if (
                             !div.is(e.target) && // если клик был не по нашему блоку
-                            div.has(e.target).length === 0
+                            div.has(e.target).length === 0 &&
+                          	dropdownIsOpen
                         ) {
                             // и не по его дочерним элементам
                             that.closeDropdown();
@@ -443,6 +443,7 @@
                         { dropdownIsOpen } = this.state,
                         { globalWrapper, listItems, selectEl } = this.uiComponent;
 
+                    console.log('close')
                     globalWrapper.removeClass("dropped");
                     globalWrapper.find('[type="search"]').val("");
                     globalWrapper.find("._dc_customSelect__not-found").hide();
