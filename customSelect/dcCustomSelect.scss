@@ -52,6 +52,7 @@ $lred: #c42a2a;
             overflow: hidden;
             text-overflow: ellipsis;
             height: auto;
+            user-select: none;
         }
     }
     &__trigger {
