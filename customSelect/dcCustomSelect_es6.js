@@ -100,7 +100,7 @@
                                     return;
                                 }
                                 newList.push(`
-                                        <div class="_dc_customSelect__list_item" data-value="${$(val).attr("value")}">${$(val).text()}</div>
+                                        <div class="_dc_customSelect__list_item ${index === 0 && "active"}" data-value="${$(val).attr("value")}">${$(val).text()}</div>
                                     `);
                             })
                         );
@@ -374,7 +374,7 @@
                         if (
                             !div.is(e.target) && // если клик был не по нашему блоку
                             div.has(e.target).length === 0 &&
-                          	dropdownIsOpen
+                            dropdownIsOpen
                         ) {
                             // и не по его дочерним элементам
                             that.closeDropdown();
