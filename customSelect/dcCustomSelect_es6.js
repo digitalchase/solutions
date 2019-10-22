@@ -100,7 +100,7 @@
                                     return;
                                 }
                                 newList.push(`
-                                        <div class="_dc_customSelect__list_item ${index === 0 && "active"}" data-value="${$(val).attr("value")}">${$(val).text()}</div>
+                                        <div class="_dc_customSelect__list_item ${index === 0 ? "active" : ""}" data-value="${$(val).attr("value")}">${$(val).text()}</div>
                                     `);
                             })
                         );
