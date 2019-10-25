@@ -1,26 +1,20 @@
 //Тротлинг
 // fn - фунция которая будет вызываться
-// timeout - задержка между вызовами
-// ctx - контекст вызоыва
+// wait - задержка между вызовами
 
-function throttle(fn, timeout, ctx) {
-        var timer, args, needInvoke;
+function throttle(fn, wait) {
+    let previouslyRun, queuedToRun;
 
-        return function() {
-            args = arguments;
-            needInvoke = true;
-            ctx = ctx || this;
+    return function invokeFn(...args) {
+        const now = Date.now();
 
-            if (!timer) {
-                (function() {
-                    if (needInvoke) {
-                        fn.apply(ctx, args);
-                        needInvoke = false;
-                        timer = setTimeout(arguments.callee, timeout);
-                    } else {
-                        timer = null;
-                    }
-                })();
-            }
-        };
-    }
+        queuedToRun = clearTimeout(queuedToRun);
+
+        if (!previouslyRun || now - previouslyRun >= wait) {
+            fn.apply(null, args);
+            previouslyRun = now;
+        } else {
+            queuedToRun = setTimeout(invokeFn.bind(null, ...args), wait - (now - previouslyRun));
+        }
+    };
+}
