@@ -9,7 +9,7 @@ function stopScroll(state) {
     }
 
     if (state) {
-        scrollTop = $(window).scrollTop();
+        scrollTopPositionInit = $(window).scrollTop();
         $("html").css({
             position: "fixed",
             top: -scrollTopPositionInit
