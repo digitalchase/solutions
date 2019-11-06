@@ -2,6 +2,9 @@ function toNailFooter() {
         const footer = document.querySelector(".footer-wrapper");
         const body = document.querySelector("body");
 
+        footer.style.position = "absolute";
+        footer.style.left = "0px";
+        footer.style.right = "0px";
         body.style.paddingBottom = `${footer.offsetHeight}px`;
         body.style.minHeight = "100vh";
     }
