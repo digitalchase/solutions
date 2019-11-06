@@ -1,0 +1,9 @@
+function toNailFooter() {
+        const footer = document.querySelector(".footer-wrapper");
+        const body = document.querySelector("body");
+
+        body.style.paddingBottom = `${footer.offsetHeight}px`;
+        body.style.minHeight = "100vh";
+    }
+
+$(window).on("resize load", toNailFooter));
