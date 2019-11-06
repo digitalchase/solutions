@@ -12,7 +12,8 @@ function stopScroll(state) {
         scrollTopPositionInit = $(window).scrollTop();
         $("html").css({
             position: "fixed",
-            top: -scrollTopPositionInit
+            top: -scrollTopPositionInit,
+            width: "100%"
         });
     } else {
         $("html").css({
@@ -51,6 +52,7 @@ class StopScroll {
             html.setAttribute(
                 "style",
                 `
+                    width: 100%;
                     position:fixed; 
                     top: ${that.scrollTopPositionInit * -1}px;
                 `
