@@ -3,14 +3,18 @@ if ($(".customInput-wrapper[data-maxlength]").length) {
 
   inputWithMaxLength.each((i, el) => {
     const maxlength = $(el).data("maxlength");
+    
+    if (isNaN(Number(maxlength))) return false;
+
     const writableElem = $(el).find("input, textarea");
     const currentLength = writableElem.val().trim().length;
-
-    if (isNaN(Number(maxlength))) return false;
+    let letterCountElem = $(el).find(".letterCount");
 
     writableElem.attr("maxlength", maxlength);
 
-    const letterCountElem = `
+    if (letterCountElem.length) letterCountElem.remove();
+
+    letterCountElem = `
             <div class="letterCount">
                 <div class="letterCount__current" data-current>${currentLength}</div>
                 <div class="letterCount__separator">\\</div>
