@@ -310,6 +310,7 @@
                     //другое поведение при мульти селекте
                     if (multiple) {
                         let arrVal;
+                        let arrPlaceholder;
                         //По клику на элемент в селекте добавляем его value в select.val
                         listItems.on("click", function () {
                             $(this).toggleClass("active");
@@ -327,14 +328,20 @@
                                 arrVal.push($(el).val());
                             });
 
+                            arrPlaceholder = [];
+                            listItems.find("input:checked").each((i, el) => {
+                                const elParent = $(el).parents('._dc_customSelect__list_item');
+                                arrPlaceholder.push(elParent.find('._dc_customSelect__list_customCheckbox_text').text());
+                            });
+
                             selectEl.val(arrVal);
 
                             let newPlaceholder;
 
-                            if (arrVal.join(", ").trim() === "") {
+                            if (arrPlaceholder.join(", ").trim() === "") {
                                 newPlaceholder = placeholder;
                             } else {
-                                newPlaceholder = multiplePlaceholder != undefined ? multiplePlaceholder : arrVal.join(", ").trim();
+                                newPlaceholder = multiplePlaceholder != undefined ? multiplePlaceholder : arrPlaceholder.join(", ").trim();
                             }
 
                             that.updatePlaceholder(newPlaceholder);
@@ -443,7 +450,6 @@
                         { dropdownIsOpen } = this.state,
                         { globalWrapper, listItems, selectEl } = this.uiComponent;
 
-                    console.log('close')
                     globalWrapper.removeClass("dropped");
                     globalWrapper.find('[type="search"]').val("");
                     globalWrapper.find("._dc_customSelect__not-found").hide();
