@@ -15,10 +15,25 @@ if ($("[data-toggleInputContainer]").length) {
     })();
     
     //Ввод только цифр, без плавующей точки
-    input.on("input", function() {
-      const that = $(this);
-      that.val(that.val().replace(/\D/, ""));
-    });
+//     input.on("input", function() {
+//       const that = $(this);
+//       that.val(that.val().replace(/\D/, ""));
+//     });
+    
+    //Ввод только цифр, с плаующей точкой
+//     input.on("input", function() {
+//       const that = $(this);
+
+//       that.val(that.val().replace(/[^\d\.]/g, ""));
+
+//       const matchParam = that.val().match(/\./g);
+
+//       if (matchParam != null) {
+//         if (that.val().match(/\./g).length > 1) {
+//           that.val(that.val().substr(0, this.value.lastIndexOf(".")));
+//         }
+//       }
+//     });
 
     toggleBtn.on("click", function() {
       switch ($(this).data("toggleinput")) {
