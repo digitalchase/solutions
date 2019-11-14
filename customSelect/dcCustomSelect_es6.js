@@ -76,6 +76,7 @@
                     //Создание элементов внутри кастомного селекта
                     // multiple = false;
                     if (multiple) {
+                        el.addClass('_dc_customSelect-multiple')
                         el.find("select").attr("multiple", "");
                         Array.from(
                             el.find("select option").each((index, val) => {
