@@ -13,6 +13,12 @@ if ($("[data-toggleInputContainer]").length) {
         return Number(input.data("step"));
       }
     })();
+    
+    //Ввод только цифр, без плавующей точки
+    input.on("input", function() {
+      const that = $(this);
+      that.val(that.val().replace(/\D/, ""));
+    });
 
     toggleBtn.on("click", function() {
       switch ($(this).data("toggleinput")) {
