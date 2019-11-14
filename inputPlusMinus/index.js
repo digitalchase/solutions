@@ -1,7 +1,7 @@
 if ($("[data-toggleInputContainer]").length) {
   $("[data-toggleInputContainer]").each(function() {
     const toggleBtn = $(this).find("[data-toggleInput]");
-    const input = $(this).find("input");
+    const input = $(this).find("[data-inputEl]");
     const step = (() => {
       if (
         input.data("step") === undefined ||
