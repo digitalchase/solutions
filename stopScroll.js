@@ -16,10 +16,12 @@ function stopScroll(state) {
             width: "100%"
         });
     } else {
-        $("html").css({
-            position: "static"
-        });
-        $(window).scrollTop(scrollTopPositionInit);
+        if ($("html").css("position") == "fixed") {
+            $("html").css({
+                position: "static"
+            });
+            $(window).scrollTop(scrollTopPositionInit);
+        }
     }
 }
 
@@ -48,6 +50,7 @@ class StopScroll {
                 that.stopScrollIsActive = false;
             }
         } else {
+            
             that.scrollTopPositionInit = window.pageYOffset;
             html.setAttribute(
                 "style",
