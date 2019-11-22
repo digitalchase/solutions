@@ -99,6 +99,9 @@
             if (event.type == "blur") {
                 if (el.value.length == 2) el.value = "";
             } else this.setCursorPosition(el.value.length);
+            
+            const pureValue = el.value.replace(/\(?\)?\s?\+?/g, "");
+            el.setAttribute("_dc-data-purevalue", pureValue);
         }
     }
 
