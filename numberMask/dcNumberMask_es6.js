@@ -13,12 +13,41 @@
                 options: (() => {
                     const el = document.querySelector(selector);
                     if (this.is("Object", obj) || obj === undefined) {
-                        return {
-                            mask: el.getAttribute("_dc-data-mask") === null ? "" : el.getAttribute("_dc-data-mask"),
-                            cursorMoveEnd: el.getAttribute("_dc-data-cursor-move-end") !== null ? true : false,
-                            placeholder: el.getAttribute("_dc-data-placeholder") === null ? "" : el.getAttribute("_dc-data-placeholder"),
-                            ...obj
-                        };
+                        return Object.assign(
+                            {},
+                            {
+                                mask:
+                                    el.getAttribute("_dc-data-mask") === null
+                                        ? ""
+                                        : el.getAttribute("_dc-data-mask")
+                            },
+                            {
+                                cursorMoveEnd:
+                                    el.getAttribute("_dc-data-cursor-move-end") !== null
+                                        ? true
+                                        : false
+                            },
+                            {
+                                placeholder:
+                                    el.getAttribute("_dc-data-placeholder") === null
+                                        ? ""
+                                        : el.getAttribute("_dc-data-placeholder")
+                            },
+                            obj
+                        );
+                        // return {
+                        //     mask:
+                        //         el.getAttribute("_dc-data-mask") === null
+                        //             ? ""
+                        //             : el.getAttribute("_dc-data-mask"),
+                        //     cursorMoveEnd:
+                        //         el.getAttribute("_dc-data-cursor-move-end") !== null ? true : false,
+                        //     placeholder:
+                        //         el.getAttribute("_dc-data-placeholder") === null
+                        //             ? ""
+                        //             : el.getAttribute("_dc-data-placeholder"),
+                        //     ...obj
+                        // };
                     } else {
                         throw "second argument must be an Object";
                     }
@@ -65,8 +94,6 @@
             } = this.state;
             el.focus();
 
-            console.log(el.value);
-
             if (cursorMoveEnd) {
                 if (el.setSelectionRange) el.setSelectionRange(pos, pos);
                 else if (el.createTextRange) {
@@ -93,13 +120,17 @@
             if (def.length >= val.length) val = def;
 
             el.value = matrix.replace(/./g, a => {
-                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+                return /[_\d]/.test(a) && i < val.length
+                    ? val.charAt(i++)
+                    : i >= val.length
+                    ? ""
+                    : a;
             });
 
             if (event.type == "blur") {
                 if (el.value.length == 2) el.value = "";
             } else this.setCursorPosition(el.value.length);
-            
+
             const pureValue = el.value.replace(/\(?\)?\s?\+?/g, "");
             el.setAttribute("_dc-data-purevalue", pureValue);
         }
