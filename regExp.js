@@ -14,3 +14,9 @@ function proverka(input) {
 function proverka(string) {
   return string.match( /[\d.?\d]+/g);
 };
+
+
+//Деления на разряды
+function prettyNumber(string) {
+  return string.replace(/(\d{1,3})(?=((\d{3})*)$)/g, " $1");
+}
