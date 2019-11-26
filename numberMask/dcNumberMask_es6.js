@@ -30,7 +30,7 @@
                             {
                                 placeholder:
                                     el.getAttribute("_dc-data-placeholder") === null
-                                        ? ""
+                                        ? el.getAttribute("placeholder")
                                         : el.getAttribute("_dc-data-placeholder")
                             },
                             obj
