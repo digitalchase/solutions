@@ -18,5 +18,7 @@ function proverka(string) {
 
 //Деления на разряды
 function prettyNumber(string) {
-  return string.replace(/(\d{1,3})(?=((\d{3})*)$)/g, " $1");
+  var parts = string.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return parts.join(".");
 }
