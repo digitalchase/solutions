@@ -1,19 +1,30 @@
-import jQuery from "jquery";
-(function ($) {
+(function($) {
     class DcCustomSelect {
         constructor(_el, _options) {
             this.el = this.is("String", _el) ? $(_el) : _el;
             this.uniqId = "dc" + Date.parse(new Date()); //Уникальный id (количество миллисекунд, прошедших с 1 января 1970 года 00:00:00 по UTC)
             this.select = $(`[data-uniqId="${this.uniqId}"]`);
             this.defaultOpitons = {
-                placeholder: this.el.data("placeholder") != undefined ? this.el.data("placeholder") : "Выберите",
+                placeholder:
+                    this.el.data("placeholder") != undefined
+                        ? this.el.data("placeholder")
+                        : "Выберите",
                 search: this.el.data("search") != undefined ? true : false,
-                searchPlaceholder: this.el.data("search-placeholder") != undefined ? this.el.data("search-placeholder") : "Поиск",
-                notFoundContent: this.el.data("not-found-content") != undefined ? this.el.data("not-found-content") : "Совпадений не найдено",
+                searchPlaceholder:
+                    this.el.data("search-placeholder") != undefined
+                        ? this.el.data("search-placeholder")
+                        : "Поиск",
+                notFoundContent:
+                    this.el.data("not-found-content") != undefined
+                        ? this.el.data("not-found-content")
+                        : "Совпадений не найдено",
                 baronScrollInit: this.el.data("baron-scroll-init") != undefined ? true : false,
                 btnReset: this.el.data("btn-reset") != undefined ? true : false,
                 multiple: this.el.data("multiple") != undefined ? true : false,
-                multiplePlaceholder: this.el.data("multiple-placeholder") != undefined ? this.el.data("multiple-placeholder") : undefined,
+                multiplePlaceholder:
+                    this.el.data("multiple-placeholder") != undefined
+                        ? this.el.data("multiple-placeholder")
+                        : undefined,
                 on: {
                     dropdownOpen: null, //Поумолчанию в каждое событие передается элемент селекта
                     dropdownClose: null //Поумолчанию в каждое событие передается элемент селекта
@@ -29,7 +40,9 @@ import jQuery from "jquery";
 
             this.uiComponent = {};
 
-            this.options = this.is("Object", _options) ? Object.assign(this.defaultOpitons, _options) : this.defaultOpitons;
+            this.options = this.is("Object", _options)
+                ? Object.assign(this.defaultOpitons, _options)
+                : this.defaultOpitons;
 
             if (this.state.init == false) {
                 this.init();
@@ -66,7 +79,15 @@ import jQuery from "jquery";
 
         createSelectUi(el) {
             let that = this,
-                { placeholder, search, searchPlaceholder, notFoundContent, baronScrollInit, btnReset, multiple } = this.options,
+                {
+                    placeholder,
+                    search,
+                    searchPlaceholder,
+                    notFoundContent,
+                    baronScrollInit,
+                    btnReset,
+                    multiple
+                } = this.options,
                 dropdownList = "",
                 btnResetElement = "",
                 searchBlock = "";
@@ -77,7 +98,7 @@ import jQuery from "jquery";
             //Создание элементов внутри кастомного селекта
             // multiple = false;
             if (multiple) {
-                el.addClass('_dc_customSelect-multiple')
+                el.addClass("_dc_customSelect-multiple");
                 el.find("select").attr("multiple", "");
                 Array.from(
                     el.find("select option").each((index, val) => {
@@ -89,20 +110,26 @@ import jQuery from "jquery";
                                     <input type="checkbox" value="${$(val).attr("value")}">
                                     <div class="_dc_customSelect__list_customCheckbox">
                                         <div class="_dc_customSelect__list_customCheckbox_box"></div>
-                                        <div class="_dc_customSelect__list_customCheckbox_text">${$(val).text()}</div> 
+                                        <div class="_dc_customSelect__list_customCheckbox_text">${$(
+                                            val
+                                        ).text()}</div> 
                                     </div>
                                 </label>
                             `);
                     })
                 );
             } else {
+                const selectedOption = el.find("option[selected]");
+                const selectedElemIndex = selectedOption.length ? selectedOption.index() : 0;
                 Array.from(
                     el.find("select option").each((index, val) => {
                         if ($(val).attr("value") == undefined) {
                             return;
                         }
                         newList.push(`
-                                <div class="_dc_customSelect__list_item ${index === 0 ? "active" : ""}" data-value="${$(val).attr("value")}">${$(val).text()}</div>
+                                <div class="_dc_customSelect__list_item ${
+                                    index === selectedElemIndex ? "active" : ""
+                                }" data-value="${$(val).attr("value")}">${$(val).text()}</div>
                             `);
                     })
                 );
@@ -113,18 +140,24 @@ import jQuery from "jquery";
                 dropdownList = `
                             <div class="_dc_customSelect__customScroll-wrapper">
                                 <div class="_dc_customSelect__customScroll_scroller">
-                                    <div class="_dc_customSelect__list ${btnReset ? " _dc_customSelect__list-offsetBottom" : ""}">
+                                    <div class="_dc_customSelect__list ${
+                                        btnReset ? " _dc_customSelect__list-offsetBottom" : ""
+                                    }">
                                         ${newList.join("")}
                                     </div>
                                 </div>
-                                <div class="_dc_customSelect__customScroll_track ${btnReset ? " _dc_customSelect__customScroll_track-btnReset" : ""}">
+                                <div class="_dc_customSelect__customScroll_track ${
+                                    btnReset ? " _dc_customSelect__customScroll_track-btnReset" : ""
+                                }">
                                     <div class="_dc_customSelect__customScroll_bar"></div>
                                 </div>
                             </div>
                         `;
             } else {
                 dropdownList = `
-                            <div class="_dc_customSelect__list ${btnReset ? " _dc_customSelect__list-offsetBottom" : ""}">
+                            <div class="_dc_customSelect__list ${
+                                btnReset ? " _dc_customSelect__list-offsetBottom" : ""
+                            }">
                                 ${newList.join("")}
                             </div>
                         `;
@@ -206,39 +239,31 @@ import jQuery from "jquery";
 
             //Настройка плейсхолдера
             let { selectEl } = this.uiComponent;
-            if (
-                selectEl
-                    .find("option")
-                    .eq(0)
-                    .val()
-                    .trim() === ""
-            ) {
+            const selectedOption = selectEl.find("option[selected]");
+            const firstOption = selectEl.find("option").eq(0);
+
+            if (selectedOption.length) {
+                that.setVal(selectedOption.val().trim(), true);
+                that.updatePlaceholder(selectedOption.text().trim());
+            } else if (firstOption.val().trim() === "") {
                 that.setVal("", true);
                 that.updatePlaceholder(placeholder);
             } else {
-                that.setVal(
-                    selectEl
-                        .find("option")
-                        .eq(0)
-                        .val()
-                        .trim(),
-                    true
-                );
-                that.updatePlaceholder(
-                    selectEl
-                        .find("option")
-                        .eq(0)
-                        .text()
-                        .trim()
-                );
+                that.setVal(firstOption.val().trim(), true);
+                that.updatePlaceholder(firstOption.text().trim());
             }
         }
 
         //Довление функции поиска в дропдаун
         searchInit() {
-            const { globalWrapper, searchInput, listItems, notFoundBlockMessage } = this.uiComponent;
+            const {
+                globalWrapper,
+                searchInput,
+                listItems,
+                notFoundBlockMessage
+            } = this.uiComponent;
 
-            searchInput.on("input", function () {
+            searchInput.on("input", function() {
                 let that = $(this);
 
                 // Удаление класса котрый прячет поисковую выдачу
@@ -246,7 +271,7 @@ import jQuery from "jquery";
                     globalWrapper.removeClass("notFound");
                 }
 
-                listItems.each(function (i, val) {
+                listItems.each(function(i, val) {
                     let text = that.val().toLowerCase();
                     let re = new RegExp(text, "i");
                     let testReg = re.test(
@@ -281,7 +306,7 @@ import jQuery from "jquery";
             const that = this;
 
             //Клик _dc_customSelect__select
-            selectBox.on("click", function () {
+            selectBox.on("click", function() {
                 const { dropdownIsOpen } = that.state;
                 // Открытие и закрытие селекта
 
@@ -306,7 +331,7 @@ import jQuery from "jquery";
                 let arrVal;
                 let arrPlaceholder;
                 //По клику на элемент в селекте добавляем его value в select.val
-                listItems.on("click", function () {
+                listItems.on("click", function() {
                     $(this).toggleClass("active");
 
                     listItems.find("input:checked").each((i, el) => {
@@ -324,8 +349,10 @@ import jQuery from "jquery";
 
                     arrPlaceholder = [];
                     listItems.find("input:checked").each((i, el) => {
-                        const elParent = $(el).parents('._dc_customSelect__list_item');
-                        arrPlaceholder.push(elParent.find('._dc_customSelect__list_customCheckbox_text').text());
+                        const elParent = $(el).parents("._dc_customSelect__list_item");
+                        arrPlaceholder.push(
+                            elParent.find("._dc_customSelect__list_customCheckbox_text").text()
+                        );
                     });
 
                     selectEl.val(arrVal);
@@ -335,14 +362,17 @@ import jQuery from "jquery";
                     if (arrPlaceholder.join(", ").trim() === "") {
                         newPlaceholder = placeholder;
                     } else {
-                        newPlaceholder = multiplePlaceholder != undefined ? multiplePlaceholder : arrPlaceholder.join(", ").trim();
+                        newPlaceholder =
+                            multiplePlaceholder != undefined
+                                ? multiplePlaceholder
+                                : arrPlaceholder.join(", ").trim();
                     }
 
                     that.updatePlaceholder(newPlaceholder);
                 });
             } else {
                 //По клику на элемент в селекте добавляем его value в select.val
-                listItems.on("click", function () {
+                listItems.on("click", function() {
                     that.setVal($(this).attr("data-value"));
 
                     listItems.removeClass("active");
@@ -356,7 +386,7 @@ import jQuery from "jquery";
 
             //событие для сброса значения
             if (btnResetElement.length && btnReset) {
-                btnResetElement.on("click", function () {
+                btnResetElement.on("click", function() {
                     that.resetValue();
                 });
             }
@@ -368,7 +398,7 @@ import jQuery from "jquery";
                 { globalWrapper } = this.uiComponent;
             const that = this;
 
-            $(document).click(function (e) {
+            $(document).click(function(e) {
                 const { dropdownIsOpen } = that.state;
                 // событие клика по веб-документу
                 var div = globalWrapper; // тут указываем ID элемента
@@ -389,7 +419,7 @@ import jQuery from "jquery";
                 { btnResetElement, listItems } = this.uiComponent,
                 { placeholder, multiple } = this.options;
 
-            btnResetElement.on("click", function () {
+            btnResetElement.on("click", function() {
                 that.setVal("");
                 that.closeDropdown();
                 that.updatePlaceholder(newPlaceholder != undefined ? newPlaceholder : placeholder);
@@ -403,8 +433,7 @@ import jQuery from "jquery";
 
         //Открывает дропдаун
         openDropdown() {
-            let { on, baronScrollInit } = this.options,
-                { dropdownIsOpen } = this.state;
+            let { on, baronScrollInit } = this.options;
 
             const that = this;
             let parent = $(`#${this.uniqId}`);
@@ -421,7 +450,10 @@ import jQuery from "jquery";
 
             //Прячу скролл если высота контента меньше области прокрутки
             if (that.is("Function", window.baron) && baronScrollInit) {
-                if (parent.find("._dc_customSelect__customScroll_scroller").height() > parent.find("._dc_customSelect__list").innerHeight()) {
+                if (
+                    parent.find("._dc_customSelect__customScroll_scroller").height() >
+                    parent.find("._dc_customSelect__list").innerHeight()
+                ) {
                     parent.find("._dc_customSelect__customScroll_track").hide();
                 } else {
                     parent.find("._dc_customSelect__customScroll_track").show();
@@ -441,7 +473,6 @@ import jQuery from "jquery";
             const that = this;
 
             let { on, multiple } = this.options,
-                { dropdownIsOpen } = this.state,
                 { globalWrapper, listItems, selectEl } = this.uiComponent;
 
             globalWrapper.removeClass("dropped");
@@ -463,7 +494,7 @@ import jQuery from "jquery";
             const { selectEl } = this.uiComponent;
             selectEl.val(value);
 
-            if(init) return false;
+            if (init) return false;
 
             selectEl.trigger("change");
         }
@@ -479,10 +510,10 @@ import jQuery from "jquery";
         }
     }
 
-    $.fn.dcInitCustomSelect = function (_options) {
+    $.fn.dcInitCustomSelect = function(_options) {
         var options = _options;
 
-        return this.each(function (index) {
+        return this.each(function(index) {
             $(this).attr("data-uniqId", "dc" + Date.parse(new Date()) + index);
             new DcCustomSelect($(this), options ? options[index] : "");
         });
