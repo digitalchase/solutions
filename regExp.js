@@ -9,6 +9,12 @@ function proverka(input) {
   input.value = input.value.replace(/[^а-яА-Я]/,'');
 };
 
+// Ввод только букв
+function proverka(input) {
+  const regexp = /[№<>@!#$%^&*()_+[\]{}?:;|'\"\\,.\/~\-={0-9}]/g;
+  input.value = input.value.replace(regexp, "");
+};
+
 
 // найти все цифры в строке
 function proverka(string) {
