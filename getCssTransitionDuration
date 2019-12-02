@@ -1,0 +1,8 @@
+function getCssTransitionDuration(el, property) {
+    const cssTransform = el
+        .css("transition")
+        .split(",")
+        .filter(val => val.includes(property));
+
+    return Number(cssTransform[0].match(/[\d.?\d]+/g)[0]);
+}
