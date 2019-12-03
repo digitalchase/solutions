@@ -1,8 +1,7 @@
-function getCssTransitionDuration(el, property) {
-    const cssTransform = el
-        .css("transition")
-        .split(",")
-        .filter(val => val.includes(property));
+//Функция принимает в себя элемент, можно как jQery $('...') так и document.querySelectorAll('...');
 
+function getCssTransitionDuration(el, property) {
+    const styleList = getComputedStyle(el[0]);
+    const cssTransform = styleList.transition.split(",").filter(val => val.includes(property));
     return Number(cssTransform[0].match(/[\d.?\d]+/g)[0]);
 }
