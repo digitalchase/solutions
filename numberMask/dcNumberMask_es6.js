@@ -13,41 +13,19 @@
                 options: (() => {
                     const el = document.querySelector(selector);
                     if (this.is("Object", obj) || obj === undefined) {
-                        return Object.assign(
-                            {},
-                            {
-                                mask:
-                                    el.getAttribute("_dc-data-mask") === null
-                                        ? ""
-                                        : el.getAttribute("_dc-data-mask")
-                            },
-                            {
-                                cursorMoveEnd:
-                                    el.getAttribute("_dc-data-cursor-move-end") !== null
-                                        ? true
-                                        : false
-                            },
-                            {
-                                placeholder:
-                                    el.getAttribute("_dc-data-placeholder") === null
-                                        ? el.getAttribute("placeholder")
-                                        : el.getAttribute("_dc-data-placeholder")
-                            },
-                            obj
-                        );
-                        // return {
-                        //     mask:
-                        //         el.getAttribute("_dc-data-mask") === null
-                        //             ? ""
-                        //             : el.getAttribute("_dc-data-mask"),
-                        //     cursorMoveEnd:
-                        //         el.getAttribute("_dc-data-cursor-move-end") !== null ? true : false,
-                        //     placeholder:
-                        //         el.getAttribute("_dc-data-placeholder") === null
-                        //             ? ""
-                        //             : el.getAttribute("_dc-data-placeholder"),
-                        //     ...obj
-                        // };
+                        return {
+                            mask:
+                                el.getAttribute("_dc-data-mask") === null
+                                    ? ""
+                                    : el.getAttribute("_dc-data-mask"),
+                            cursorMoveEnd:
+                                el.getAttribute("_dc-data-cursor-move-end") !== null ? true : false,
+                            placeholder:
+                                el.getAttribute("_dc-data-placeholder") === null
+                                    ? el.getAttribute("placeholder")
+                                    : el.getAttribute("_dc-data-placeholder"),
+                            ...obj
+                        };
                     } else {
                         throw "second argument must be an Object";
                     }
@@ -76,7 +54,12 @@
                 options: { placeholder }
             } = this.state;
 
-            el.setAttribute("placeholder", placeholder);
+            if (
+                el.getAttribute("placeholder") !== null ||
+                el.getAttribute("_dc-data-placeholder") !== null
+            ) {
+                el.setAttribute("placeholder", placeholder);
+            }
         }
 
         bindEvent() {
