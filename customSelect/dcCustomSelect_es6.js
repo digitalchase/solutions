@@ -1,3 +1,4 @@
+import jQuery from "jquery";
 (function($) {
     class DcCustomSelect {
         constructor(_el, _options) {
@@ -41,7 +42,7 @@
             this.uiComponent = {};
 
             this.options = this.is("Object", _options)
-                ? Object.assign(this.defaultOpitons, _options)
+                ? { ...this.defaultOpitons, ..._options }
                 : this.defaultOpitons;
 
             if (this.state.init == false) {
