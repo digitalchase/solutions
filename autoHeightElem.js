@@ -3,7 +3,8 @@
 //Принимает селектор элемента по которым будет проходиться
 const autoHeight = (selector) => {
     const elems =  document.querySelectorAll(selector);
-    let itemHeight = Array.from(elems).reduce((accum, el) => {
+    elems.forEach(el => el.removeAttribute('style'));
+    const itemHeight = Array.from(elems).reduce((accum, el) => {
         let h = el.offsetHeight;
         if (Number(h) > accum) accum = h;
         return accum;
