@@ -32,7 +32,7 @@ class ValidationType {
 
     mobilePhone(_val) {
         if(!this.is('String', _val)) throw this.valueNotString;
-        if(_val === '') throw 'field is empty';
+        if(_val === '') return false;
         const val = _val.match( /\d+/g).join('');
         return val.length === 11;
     }
