@@ -26,8 +26,8 @@ class ValidationType {
     }
 
     checked(el) {
-        if(el.getAttribute('type') !== 'checkbox' || el.getAttribute('type') !== 'radio') throw 'element must have the attribute name="checkbox|radio"';
-        return el.checked;
+        if(el.getAttribute('type') === 'checkbox' || el.getAttribute('type') === 'radio') return el.checked;
+        throw 'element must have the attribute name="checkbox || radio"';
     }
 
     mobilePhone(_val) {
@@ -77,11 +77,13 @@ class Validation extends ValidationType {
         this.minPasswordLength = passwordLength;
         this.elements = elements;
         this.inputsMinLength = inputsMinLength;
+        this.classValid = '_dc-validation-access'; //Класс при успешной валидации
+        this.classError = '_dc-validation-error'; //Класс при ошибки валидации
     }
 
     startAll() {
-        const classValid = '_dc-validation-access'; //Класс при успешной валидации
-        const classError = '_dc-validation-error'; //Класс при ошибки валидации
+        const classValid = this.classValid
+        const classError = this.classError
         const arr = Array.isArray(this.elements) ? this.elements : Array.from(this.elements); //Преобразование nodeList в Array
         const minLengthDefault = this.inputsMinLength; //Минимальная длина поля
 
@@ -101,7 +103,13 @@ class Validation extends ValidationType {
             const nodeNameValidation = validNodeName.includes(elNodeName); //Проверка на то совпадает ли NodeName с допустимыми
             const elValue = nodeNameValidation ? el.value.trim() : "NOT_EDITABLE_FIELD"; //Получаю value элемента
             const attValueMinLength = el.getAttribute("_dc-data-minlength");
-            const minLength = isNaN(Number(attValueMinLength)) ? minLengthDefault : Number(attValueMinLength);
+            let minLength = 0;
+
+            if(isNaN(Number(attValueMinLength)) || attValueMinLength === null) {
+                minLength = minLengthDefault;
+            } else {
+                minLength = Number(attValueMinLength);
+            }
 
             /* Если тип валидации пустой, проверяется только минимальная длина */
             if (nodeNameValidation) {
@@ -137,7 +145,6 @@ class Validation extends ValidationType {
                         return inputAttr === 'password' ? input : null;
                     });
 
-
                     // Выдаем ошибку если не найдено поле с которомы сравнивать
                     if(typeof inputPassword === "undefined") throw 'could not find field to compare.';
                     // Прерываем скрипт если у поля пароля с которым сравниваем не прошло валидацию
@@ -166,9 +173,15 @@ class Validation extends ValidationType {
             }
         });
     }
+
+
+    testError() {
+        const elems = Array.from(this.elements);
+        const selector = this.classError;
+        return elems.some(el => el.classList.contains(selector));
+    }
 }
 
 
 export {ValidationType};
 export default Validation;
-
