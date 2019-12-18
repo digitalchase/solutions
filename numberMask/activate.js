@@ -22,6 +22,7 @@ var options = {
 }
 
 
+// Первый аргумент принимает либо строку (селектор элемента), либо элемент Node
 new DcNumberMask('#withOutAttr', options); //Параметры из optiosn
 new DcNumberMask('#withAttr'); //Параметры из атрибутов
 new DcNumberMask('#defaultSettings'); //Стандартные настройки
