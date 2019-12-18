@@ -6,7 +6,7 @@ class DcNumberMask {
             } else if(this.is("HTMLInputElement", elem)) {
                 return elem;
             } else {
-                throw "first argument must be a String";
+                throw "first argument must be a String or HTMLInputElement";
             }
         })();
 
