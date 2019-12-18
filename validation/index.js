@@ -68,12 +68,22 @@ class ValidationType {
         if(inputsArr.length === 0) return  false;
         return inputsArr.some(input => input.checked);
     }
+
+    fileInput(el, formats) {
+        if(el.files === null) return false;
+        if(el.files.length === 0) return false;
+        if(formats === null) return true;
+        const fileType = el.files[0].name.split('.').pop();
+        if(formats.some(el => el === fileType)) return true
+        return false;
+    }
 }
 
 
 class Validation extends ValidationType {
-    constructor({elements = [], passwordLength = 0, inputsMinLength = 0}) {
+    constructor({elements = [], passwordLength = 0, inputsMinLength = 0, formats = null}) {
         super();
+        this.formats = formats;
         this.minPasswordLength = passwordLength;
         this.elements = elements;
         this.inputsMinLength = inputsMinLength;
@@ -103,6 +113,7 @@ class Validation extends ValidationType {
             const nodeNameValidation = validNodeName.includes(elNodeName); //Проверка на то совпадает ли NodeName с допустимыми
             const elValue = nodeNameValidation ? el.value.trim() : "NOT_EDITABLE_FIELD"; //Получаю value элемента
             const attValueMinLength = el.getAttribute("_dc-data-minlength");
+
             let minLength = 0;
 
             if(isNaN(Number(attValueMinLength)) || attValueMinLength === null) {
@@ -169,6 +180,15 @@ class Validation extends ValidationType {
                     break;
                 case "radioButtonGroup":
                     addTheCorrectClass(super.radioButtonGroup(el));
+                    break;
+                case "file":
+                    let formats = el.getAttribute('_dc-data-formats');
+                    if(formats === null) {
+                        formats = this.formats;
+                    } else {
+                        formats = formats.replace(/\s/, '').split(',');
+                    }
+                    addTheCorrectClass(super.fileInput(el, formats));
                     break;
             }
         });
