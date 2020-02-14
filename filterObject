@@ -1,3 +1,6 @@
+//Возвращает объект без объектов, в которых есть поле по котороуму фильтруется
+// Что бы вернуть объекты с полем и значением, нужно заменить "===" на "!=="
+
 const filterObject = (obj, filter, filterValue) =>
     Object.keys(obj).reduce((acc, val) =>
         (obj[val][filter] === filterValue ? acc : {
