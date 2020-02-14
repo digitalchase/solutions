@@ -1,10 +1,18 @@
-//Возвращает объект без объектов, в которых есть поле по котороуму фильтруется
-// Что бы вернуть объекты с полем и значением, нужно заменить "===" на "!=="
+// Возвращает объект без объектов в которых поля не были найдены.
+// Что бы вернуть только объекты без полей  нужно заменить "===" на "!=="
+// Если не передать filterValue, будет искать объекты с полем в котором любое значение
 
 const filterObject = (obj, filter, filterValue) =>
-    Object.keys(obj).reduce((acc, val) =>
-        (obj[val][filter] === filterValue ? acc : {
+    Object.keys(obj).reduce((acc, val) => {
+        if(filterValue === undefined) {
+            return obj[val].hasOwnProperty(filter) ? {
                 ...acc,
                 [val]: obj[val]
-            }
-        ), {});
+            } : acc
+        } else {
+            return obj[val][filter] === filterValue ? {
+                ...acc,
+                [val]: obj[val]
+            } : acc
+        }
+    }, {});
