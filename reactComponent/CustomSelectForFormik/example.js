@@ -18,7 +18,7 @@ export default () => {
                 ]}
                 setFieldValue={props.setFieldValue}
                 placeholder="Селект"
-                value={[]}/>
+                value={"value"}/>
           </Form>
         )
       }}
