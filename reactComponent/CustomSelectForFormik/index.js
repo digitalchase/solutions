@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import "./style/index.css";
+import "../style/index.css";
 
 class CustomSelect extends Component {
     state = { isOpen: false };
