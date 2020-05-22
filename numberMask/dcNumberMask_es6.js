@@ -14,7 +14,7 @@ class DcNumberMask {
         this.options = (() => {
             const el = this.el;
             if (this.is("Object", obj) || obj === undefined) {
-                return {
+                return Object.assign({
                     mask:
                         el.getAttribute("_dc-data-mask") === null
                             ? ""
@@ -24,9 +24,8 @@ class DcNumberMask {
                     placeholder:
                         el.getAttribute("_dc-data-placeholder") === null
                             ? el.getAttribute("placeholder")
-                            : el.getAttribute("_dc-data-placeholder"),
-                    ...obj
-                };
+                            : el.getAttribute("_dc-data-placeholder")
+                }, obj)
             } else {
                 throw "second argument must be an Object";
             }
