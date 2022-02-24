@@ -65,3 +65,8 @@ function hasSpecialSymbols(string) {
   }
   return false;
 };
+
+function isUrl(value) {
+  const rexp = /^(?:https?:\/\/)?(?:www\.)?(?:[-\wа-яё]+(?:\.[-\wа-яё]+)+)((?:\/[-\wа-яё\/]+)+(?:\.[-\wа-яё]+)?)?(?:#(?:[-\wа-яё]+)?)?\??(?:(?<=\?)(?:[-\wа-яё]+=?(?:(?<==)(?:[-\wа-яё%]+))?&?)+)?$/gi
+  return rexp.test(value);
+}
